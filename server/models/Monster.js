@@ -10,14 +10,6 @@ const monsterSchema = new Schema({
     type: String,
     required: true,
   },
-  habitat: {
-    type: String,
-    required: true,
-  },
-  weaknesses: {
-    type: [String],
-    required: true,
-  },
   comments: [
     {
       commentText: {
