@@ -4,16 +4,16 @@ import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 import CommentList from "../components/CommentList";
 import CommentForm from "../components/CommentForm";
-import UpdateMonsterForm from "../components/updateMonsterForm";
-import { QUERY_SINGLE_MONSTER } from "../utils/queries";
+import UpdatePostForm from "../components/updatePostForm";
+import { QUERY_SINGLE_POST } from "../utils/queries";
 
-const SingleMonster = () => {
+const singlePost = () => {
   const { monsterId } = useParams();
-  const { loading, data } = useQuery(QUERY_SINGLE_MONSTER, {
-    variables: { monsterId: monsterId },
+  const { loading, data } = useQuery(QUERY_SINGLE_POST, {
+    variables: { postId: postId },
   });
 
-  const monster = data?.monster || {};
+  const post = data?.post || {};
 
   const [showUpdateMonsterModal, setShowUpdateMonsterModal] = useState(false);
 

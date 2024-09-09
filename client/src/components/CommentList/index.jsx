@@ -2,7 +2,7 @@ import { useState } from "react";
 import UpdateCommentForm from "../updateCommentForm";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
-import { REMOVE_COMMENT } from "../../utils/mutations";
+import { REMOVE_COMMENT } from "../../utils/users";
 
 const CommentList = ({ comments = [], monsterId }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
