@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useUser } from "@apollo/client";
 
-import { ADD_MONSTER } from "../../utils/mutations";
+import { ADD_MONSTER } from "../../utils/users";
 import { QUERY_MONSTERS } from "../../utils/queries";
 
-const MonsterForm = () => {
+const PostForm = () => {
   const [formState, setFormState] = useState({
-    monsterName: "",
+    postName: "",
     type: "",
-    habitat: "",
-    weaknesses: [],
+    location: "",
+    content: "",
   });
   const [weaknessInput, setWeaknessInput] = useState("");
   const [addMonster, { error }] = useMutation(ADD_MONSTER, {

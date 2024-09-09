@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
 
-const MonsterList = ({ monsters }) => {
-  if (!monsters.length) {
+const MonsterList = ({ posts }) => {
+  if (!posts.length) {
     return <h3>No Monsters Yet</h3>;
   }
-  console.log(monsters);
+  console.log(posts);
   return (
     <div>
-      {monsters &&
-        monsters.map((monster) => (
+      {posts &&
+        posts.map((post) => (
           <div key={monster._id} className='card mb-3'>
             <h4 className='card-header bg-dark text-light p-2 m-0'>
               {monster.monsterName}
             </h4>
             <div className='card-body bg-light p-2'>
               <h5>Type:</h5>
-              <p>{monster.type}</p>
-              <h5>Habitat:</h5>
-              <p>{monster.habitat}</p>
-              <h5>Weaknesses:</h5>
+              <p>{post.type}</p>
+              <h5>Location:</h5>
+              <p>{post.location}</p>
+              <h5>Content:</h5>
               <ul>
-                {monster.weaknesses.map((weakness, i) => (
+                {post.weaknesses.map((weakness, i) => (
                   <li key={weakness[i]}>{weakness}</li>
                 ))}
               </ul>
@@ -37,4 +37,4 @@ const MonsterList = ({ monsters }) => {
   );
 };
 
-export default MonsterList;
+export default List;

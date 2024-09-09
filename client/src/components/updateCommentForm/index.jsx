@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { UPDATE_COMMENT } from "../../utils/mutations";
-import { QUERY_MONSTERS } from "../../utils/queries";
+import { UPDATE_COMMENT } from "../../utils/users";
+import { QUERY_POSTS } from "../../utils/queries";
 
 const UpdateCommentForm = ({
   monsterId,
@@ -12,7 +12,7 @@ const UpdateCommentForm = ({
   const [commentText, setCommentText] = useState(initialCommentText);
 
   const [updateComment, { error }] = useMutation(UPDATE_COMMENT, {
-    refetchQueries: [{ query: QUERY_MONSTERS }],
+    refetchQueries: [{ query: QUERY_POSTS }],
   });
 
   const handleFormSubmit = async (event) => {

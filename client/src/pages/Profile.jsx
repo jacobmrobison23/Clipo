@@ -1,10 +1,10 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
-import MonsterForm from "../components/MonsterForm";
-import MonsterList from "../components/MonsterList";
+import PostForm from "../components/PostForm";
+import PostList from "../components/PostList";
 
-import { QUERY_USER, QUERY_ME, QUERY_MONSTERS } from "../utils/queries";
+import { QUERY_USER, QUERY_ME, QUERY_USER } from "../utils/queries";
 
 import Auth from "../utils/auth";
 
@@ -14,11 +14,11 @@ const Profile = () => {
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
-  const { loading: loadingMonsters, data: monsterData } =
-    useQuery(QUERY_MONSTERS);
+  const { loading: loadingPost, data: Data } =
+    useQuery(QUERY_POSTS);
 
   const user = data?.me || data?.user || {};
-  const monsters = monsterData?.monsters || [];
+  const posts = monsterData?.monsters || [];
 
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -29,8 +29,8 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  if (loadingMonsters) {
-    return <div>Loading Monsters...</div>;
+  if (loadingPosts) {
+    return <div>Loading Posts...</div>;
   }
 
   if (!user) {
@@ -42,7 +42,7 @@ const Profile = () => {
     );
   }
 
-  if (monsters.length === 0) {
+  if (posts.length === 0) {
     return <h4>No monsters to display</h4>;
   }
 
@@ -54,13 +54,13 @@ const Profile = () => {
         </h2>
 
         <div className='col-12 col-md-10 mb-5'>
-          <MonsterList monsters={monsters} title='Witcher Monsters' />
+          <PostList monsters={posts} title='Witcher Monsters' />
         </div>
         <div
           className='col-12 col-md-10 mb-3 p-3'
           style={{ border: "1px dotted #1a1a1a" }}
         >
-          <MonsterForm />
+          <PostForm />
         </div>
       </div>
     </div>
