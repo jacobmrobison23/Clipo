@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import { ADD_COMMENT } from "../../utils/users";
 
 import Auth from "../../utils/auth";
 
-const CommentForm = ({ monsterId }) => {
+const CommentForm = ({ postId }) => {
   const [commentText, setCommentText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
@@ -77,7 +77,7 @@ const CommentForm = ({ monsterId }) => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your monsters. Please{" "}
+          You need to be logged in to share your . Please{" "}
           <Link to='/login'>login</Link> or <Link to='/signup'>signup.</Link>
         </p>
       )}
