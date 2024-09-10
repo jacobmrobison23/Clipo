@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
-
+import { v2 as cloudinary } from "cloudinary";
 
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
 
     try {
       const user = await User.findOne({ username }).select("-password");
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) return res.status(404).json({ error: "User not found" });
 
       res.status(200).json(user);
     } catch (error) {
@@ -177,7 +177,7 @@ module.exports = {
 
       user = await user.save();
 
-      // password should be null in response
+      // password should be null in response for security(?)
       user.password = null;
 
       return res.status(200).json(user);
