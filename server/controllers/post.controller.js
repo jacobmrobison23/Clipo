@@ -1,7 +1,7 @@
 import Notification from "../models/notification.js";
 import Post from "../models/post.js";
 import User from "../models/User.js";
-import cloudinary from "../utils/cloudinary.js";
+import cloudinary from "cloudinary";
 
 export const createPost = async (req, res) => {
     try {
