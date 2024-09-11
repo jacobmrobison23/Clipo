@@ -44,7 +44,7 @@ const SignUpPage = () => {
 			toast.success("Account created successfully");
 
 			{
-				/* Added this line below, after recording the video. I forgot to add this while recording, sorry, thx. */
+				/* Reset the form */
 			}
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
