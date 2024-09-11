@@ -28,9 +28,9 @@ app.use(express.urlencoded({ extended: true })); // to parse form data
 app.use(cookieParser()); // to parse cookies
 
 app.use("/api/auth", authRoutes); // to use auth routes
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes); // to use user routes
 app.use("/api/posts", postRoutes); // to use post routes
-app.use("/api/notifications", notificationRoutes);
+app.use("/api/notifications", notificationRoutes); // to use notification routes
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/client/dist")));
