@@ -1,5 +1,5 @@
 import Post from "./Post";
-import PostSkeleton from "../skeletons/PostSkeleton";
+import Postframe from "../frames/Postframe";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
@@ -52,9 +52,9 @@ const Posts = ({ feedType, username, userId }) => {
 		<>
 			{(isLoading || isRefetching) && (
 				<div className='flex flex-col justify-center'>
-					<PostSkeleton />
-					<PostSkeleton />
-					<PostSkeleton />
+					<Postframe />
+					<Postframe />
+					<Postframe />
 				</div>
 			)}
 			{!isLoading && !isRefetching && posts?.length === 0 && (
