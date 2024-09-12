@@ -1,52 +1,62 @@
-import './App.css';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignupPage";
+import NotificationPage from "./pages/NotificationPage";
+import ProfilePage from "./pages/ProfilePage";
 
-// Construct our main GraphQL API endpoint
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
+import Sidebar from "./components/common/Sidebar";
+import RightPanel from "./components/common/RightPanel";
 
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
+import { Toaster } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "./components/common/LoadingSpinner";
 
 function App() {
-  return (
-    <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
-        <Header />
-        <div className="container">
-          <Outlet />
-        </div>
-        <Footer />
-      </div>
-    </ApolloProvider>
-  );
+	const { data: authUser, isLoading } = useQuery({
+		// we use queryKey to give a unique name to our query and refer to it later
+		queryKey: ["authUser"],
+		queryFn: async () => {
+			try {
+				const res = await fetch("/api/auth/me");
+				const data = await res.json();
+				if (data.error) return null;
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				console.log("authUser is here:", data);
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		retry: false,
+	});
+
+	if (isLoading) {
+		return (
+			<div className='h-screen flex justify-center items-center'>
+				<LoadingSpinner size='lg' />
+			</div>
+		);
+	}
+
+	return (
+		<div className='flex max-w-6xl mx-auto'>
+			{/* Common component, bc it's not wrapped with Routes */}
+			{authUser && <Sidebar />}
+			<Routes>
+				<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
+				<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
+				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
+				<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
+			</Routes>
+			{authUser && <RightPanel />}
+			<Toaster />
+		</div>
+	);
 }
 
 export default App;
