@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import Posts from "../components/common/Posts";
+import Posts from "../../components/common/Posts";
 import CreatePost from "./CreatePost";
 
+ // This component displays the home page
 const HomePage = () => {
 	const [feedType, setFeedType] = useState("forYou");
 
