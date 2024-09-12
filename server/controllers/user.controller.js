@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
 import { v2 as cloudinary } from "cloudinary";
 
-import Notification from "../models/notification.js";
-import User from "../models/User.js";
+import Notification from "../models/notification.model.js";
+import User from "../models/user.model.js";
 
+// This function is used to get a user
 export const getUserProfile = async (req, res) => {
 	const { username } = req.params;
 
@@ -17,7 +18,7 @@ export const getUserProfile = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
-
+ // This function is used to follow/unfollow a user
 export const followUnfollowUser = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -58,7 +59,7 @@ export const followUnfollowUser = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
-
+ // This function is used to get all users as suggestions
 export const getSuggestedUsers = async (req, res) => {
 	try {
 		const userId = req.user._id;
@@ -86,7 +87,7 @@ export const getSuggestedUsers = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
-
+ // This function is used to update a user
 export const updateUser = async (req, res) => {
 	const { fullName, email, username, currentPassword, newPassword, bio, link } = req.body;
 	let { profileImg, coverImg } = req.body;

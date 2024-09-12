@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import XSvg from "../components/svgs/X";
+import XSvg from "../../../components/svgs/X";
 
 import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
+ // This component is used to create a new account
 const SignUpPage = () => {
 	const [formData, setFormData] = useState({
 		email: "",
@@ -44,17 +45,17 @@ const SignUpPage = () => {
 			toast.success("Account created successfully");
 
 			{
-				/* Reset the form */
+				/* Redirect to login page */
 			}
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
 	});
-
+ // This function is used to handle the form submission
 	const handleSubmit = (e) => {
 		e.preventDefault(); // page won't reload
 		mutate(formData);
 	};
-
+ // This function is used to handle the input change
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};

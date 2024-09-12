@@ -1,5 +1,5 @@
-import Notification from "../models/notification.js";
-
+import Notification from "../models/notification.model.js";
+ // This function is used to get all notifications
 export const getNotifications = async (req, res) => {
 	try {
 		const userId = req.user._id;
@@ -17,7 +17,7 @@ export const getNotifications = async (req, res) => {
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
-
+ // This function is used to delete all notifications
 export const deleteNotifications = async (req, res) => {
 	try {
 		const userId = req.user._id;
